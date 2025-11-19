@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Please click below "Download" option to download the file.</title>
+<style>
+    body {
+        background: #000;
+        color: #fff;
+        font-family: Arial;
+        text-align: center;
+    }
+
+    #videoContainer {
+        position: relative;
+        width: 80%;
+        margin: auto;
+    }
+
+    #player {
+        width: 100%;
+        height: 450px;
+        background: #000;
+    }
+
+    /* Download overlay */
+    #downloadOverlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.85);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #progressBarOuter {
+        width: 80%;
+        height: 20px;
+        background: #333;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-top: 15px;
+    }
+
+    #progressBar {
+        width: 0%;
+        height: 100%;
+        background: #0f0;
+        transition: width 1s linear;
+    }
+</style>
+</head>
+<body>
+
+<h1>Please click below "Download" option to download the file.</h1>
+
+<div id="videoContainer">
+    <iframe id="player" 
+        src="https://www.youtube.com/embed/6uAnqAUodvA?autoplay=1&mute=1"
+        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+    </iframe>
+
+    <!-- DOWNLOAD SIMULATION OVERLAY -->
+    <div id="downloadOverlay">
+        <h2>Download in progress. Please do not close this tab</h2>
+        <div id="progressBarOuter">
+            <div id="progressBar"></div>
+        </div>
+        <p id="percentText">0%</p>
+        <p>Estimated time: 10 minutes…</p>
+    </div>
+</div>
+
+<br>
+
+<button onclick="startDownloadSimulation()" 
+style="padding:12px 24px; font-size:18px; cursor:pointer;">
+    ⬇ Download
+</button>
+
+<script>
+let totalTime = 10 * 60; // 10 minutes in seconds
+let current = 0;
+
+function startDownloadSimulation() {
+    document.getElementById("downloadOverlay").style.display = "flex";
+
+    let interval = setInterval(() => {
+        current++;
+        let percent = Math.floor((current / totalTime) * 100);
+        document.getElementById("progressBar").style.width = percent + "%";
+        document.getElementById("percentText").innerText = percent + "%";
+
+        if (current >= totalTime) {
+            clearInterval(interval);
+            document.getElementById("downloadOverlay").innerHTML =
+                "<h2>Download Complete ✔</h2>";
+        }
+    }, 1000); // update every second
+}
+</script>
+
+</body>
+</html>
