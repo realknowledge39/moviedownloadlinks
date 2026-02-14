@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Link Option • Secure Download</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0a0a0f;
+      color: #e2e8f0;
+    }
+    .glass {
+      background: rgba(30, 30, 50, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(100, 116, 139, 0.25);
+      border-radius: 1rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-800/50">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+          LO
+        </div>
+        <span class="text-2xl font-semibold tracking-tight">Link Option</span>
+      </div>
+      <div class="flex items-center gap-3 text-sm text-slate-400">
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Secure
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-28 pb-20 px-6 max-w-7xl mx-auto">
+    <!-- Hero -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-5 py-2 glass rounded-full text-sm text-slate-300 mb-6">
+        <i class="fa-solid fa-shield-halved text-emerald-500"></i>
+        Verified • 1.2 GB • SHA-256 Secured
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+        Select Option
+      </h1>
+      <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+        Link Valid for 24hrs
+      </p>
+    </div>
+
+    <!-- Provider Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+      <!-- Cards generated in JS -->
+    </div>
+  </main>
+
+  <!-- Captcha Modal -->
+  <div id="captchaModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="glass w-full max-w-md rounded-2xl overflow-hidden shadow-2xl">
+      <div class="px-8 py-6 border-b border-slate-700/50 flex items-center justify-between">
+        <h3 class="text-xl font-semibold text-white">Security Verification</h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-white text-2xl transition">×</button>
+      </div>
+
+      <div class="p-10 text-center">
+        <div class="mx-auto w-20 h-20 rounded-full bg-slate-800/50 flex items-center justify-center mb-6">
+          <i class="fa-solid fa-shield-halved text-4xl text-blue-500"></i>
+        </div>
+
+        <h4 class="text-2xl font-semibold mb-3">Please verify you're human</h4>
+        <p class="text-slate-400 mb-8 text-sm">
+          This quick check helps us keep the platform safe.
+        </p>
+
+        <div onclick="startVerification()" id="recapArea"
+             class="glass cursor-pointer p-6 rounded-xl flex items-center justify-center gap-4 hover:border-blue-500/40 transition-all">
+          <input type="checkbox" id="recapCheck" class="w-6 h-6 rounded accent-blue-600">
+          <label for="recapCheck" class="text-lg cursor-pointer text-slate-200">I'm not a robot</label>
+        </div>
+
+        <div id="loading" class="hidden mt-10 flex flex-col items-center gap-4">
+          <div class="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <p class="text-slate-400">Verifying...</p>
+        </div>
+
+        <div id="success" class="hidden mt-10 text-xl font-semibold text-emerald-400">
+          ✓ Verified — Moving to Download folder...
+        </div>
+      </div>
+
+      <div class="px-8 py-6 border-t border-slate-700/50 text-right">
+        <button onclick="closeModal()" class="px-6 py-3 text-slate-400 hover:text-white transition">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+// Updated links - all links you provided in the last message
+const links = [
+  "https://oii.la/KgVIs",
+  "https://oii.la/zx6IcQX8Dm",
+  "https://oii.la/4H85xKs",
+  "https://oii.la/1g88SK6",
+  "https://oii.la/QdvG",
+  "https://oii.la/AsB6MNC",
+  "https://oii.la/HG1HNp",
+  "https://oii.la/OKyv7V",
+  "https://oii.la/nYZE",
+  "https://oii.la/5PA6JL",
+  "https://oii.la/EJXnlVF9wH",
+  "https://oii.la/ZjAu",
+  "https://oii.la/lieeLJCy",
+  "https://oii.la/X31o6t",
+  "https://oii.la/suw",
+  "https://oii.la/qSvye5bgW",
+  "https://oii.la/jq8iM3cn",
+  "https://oii.la/aVdQeQebTz",
+  "https://oii.la/E09ZL89",
+  "https://oii.la/MNWxAn0x",
+  "https://oii.la/8cBnv",
+  "https://oii.la/Cu6i5QSr",
+  "https://oii.la/64CAr98Tf",
+  "https://oii.la/NzZ16QeqCv",
+  "https://oii.la/MVIw8rpMn",
+  "https://oii.la/9VWFAyZSsE",
+  "https://oii.la/UNs",
+  "https://oii.la/8r5twZf",
+  "https://oii.la/XTBF",
+  "https://oii.la/cNeFuJR",
+  "https://oii.la/bwQS",
+  "https://oii.la/iQdvVJG",
+  "https://oii.la/P0p83RZ",
+  "https://oii.la/yLSyNactHe",
+  "https://oii.la/lEIXVwch",
+  "https://oii.la/6fmKpD29",
+  "https://oii.la/fVODwY0e0",
+  "https://oii.la/9ek9zGqaQ",
+  "https://oii.la/hVVlYtIsEK",
+  "https://oii.la/OCDlhO",
+  "https://oii.la/OcyQ",
+  "https://oii.la/O37Yj",
+  "https://oii.la/fFRUVz",
+  "https://oii.la/hzcat",
+  "https://oii.la/ochag",
+  "https://oii.la/UVm",
+  "https://oii.la/TuDqSCuLq",
+  "https://oii.la/ED8pu4jTpl",
+  "https://oii.la/jNwJlCU",
+  "https://oii.la/bUPTpgQ5Ay",
+  "https://oii.la/CHCOdo",
+  "https://oii.la/XquwQVJCBW",
+  "https://oii.la/fStiGsup",
+  "https://oii.la/pSyE",
+  "https://oii.la/7z0Yv",
+  "https://oii.la/uchm32ch",
+  "https://oii.la/nhhr",
+  "https://oii.la/HzKK1",
+  "https://oii.la/KixO",
+  "https://oii.la/PWOBTv",
+  "https://oii.la/IOhHbGrd",
+  "https://oii.la/ej2Whz",
+  "https://oii.la/2gH5Z",
+  "https://oii.la/lnVGWJ",
+  "https://oii.la/htfdE8D",
+  "https://oii.la/oSTOJdHV",
+  "https://oii.la/MLMkiZrMbT",
+  "https://oii.la/YyMx",
+  "https://oii.la/uEc3A137mC",
+  "https://oii.la/ZCUzL1wv9Y",
+  "https://oii.la/DJhtN",
+  "https://oii.la/oYoU0",
+  "https://oii.la/vc3R",
+  "https://oii.la/vNFpsO",
+  "https://oii.la/OdIxo8yRf7",
+  "https://oii.la/L3aVOe",
+  "https://oii.la/6AurY",
+  "https://oii.la/KKZifm",
+  "https://oii.la/4H6h",
+  "https://oii.la/QcEk8",
+  "https://oii.la/qhIb8Py0wi",
+  "https://oii.la/VBnRRJyXd",
+  "https://oii.la/9fGeEzCyqq",
+  "https://oii.la/uDnMstN0",
+  "https://oii.la/znlKTsMKPi",
+  "https://oii.la/4p5k",
+  "https://oii.la/B8HEqLIv",
+  "https://oii.la/aLqO7",
+  "https://oii.la/8Dd7",
+  "https://oii.la/bNPBRAUWF",
+  "https://oii.la/rCiCTUm",
+  "https://oii.la/AkG5SpukMch",
+  "https://oii.la/0OYcDKo1",
+  "https://oii.la/l0CmMtue0x",
+  "https://oii.la/6ANnzuN8",
+  "https://oii.la/DQ0mq0",
+  "https://oii.la/8eHp8lz",
+  "https://oii.la/xykhyD3s",
+  "https://oii.la/LMu6P01",
+  "https://oii.la/faFUnU",
+  "https://oii.la/vC5k",
+  "https://oii.la/mu0",
+  "https://oii.la/dK7NVkue",
+  "https://oii.la/p4SB6JhrZ",
+  "https://oii.la/J0TWaP5at2",
+  "https://oii.la/zCJTHx0",
+  "https://oii.la/epZm",
+  "https://oii.la/8qGShMbasJ",
+  "https://oii.la/ynHY",
+  "https://oii.la/RYQ5Czf69I",
+  "https://oii.la/iFbL",
+  "https://oii.la/9RyjhA",
+  "https://oii.la/ByxiC",
+  "https://oii.la/vqH3wy2VL",
+  "https://oii.la/jdohF",
+  "https://oii.la/F0Jd",
+  "https://oii.la/VrmK4VDP",
+  "https://oii.la/3DsnQgRbu0",
+  "https://oii.la/6v9bByu1",
+  "https://oii.la/320V3QvwA",
+  "https://oii.la/MCR1msd",
+  "https://oii.la/LaAhKYAJr",
+  "https://oii.la/u0MH",
+  "https://oii.la/JAsL",
+  "https://oii.la/Kdw52pJRyA",
+  "https://oii.la/65L3G6Ecjd",
+  "https://oii.la/Tbh4TiAkF",
+  "https://oii.la/65sd3ZcRzN",
+  "https://oii.la/dZA0Xch",
+  "https://oii.la/QDPrNSr8Ar",
+  "https://oii.la/FO9E",
+  "https://oii.la/WJRr5O",
+  "https://oii.la/ymbfYv4Z",
+  "https://oii.la/4oWrVCJTeD",
+  "https://oii.la/bVUk",
+  "https://oii.la/20T",
+  "https://oii.la/ud7ZORRtch",
+  "https://oii.la/HATLcdCbO",
+  "https://oii.la/oh8J9cAXo",
+  "https://oii.la/hvdYth",
+  "https://oii.la/Cobd9zXm",
+  "https://oii.la/BUqSkcf6q8",
+  "https://oii.la/b8s",
+  "https://oii.la/JFjU",
+  "https://oii.la/KDmWs6d",
+  "https://oii.la/C9mHyCzJ",
+  "https://oii.la/LZagTx",
+  "https://oii.la/MxLzxh",
+  "https://oii.la/lyZwJdK",
+  "https://oii.la/DzcF",
+  "https://oii.la/kARxr0ze",
+  "https://oii.la/FWpbI9EG7l",
+  "https://oii.la/QCUtYW7",
+  "https://oii.la/8Es2DL19U",
+  "https://oii.la/hutDchdX",
+  "https://oii.la/5vxd9",
+  "https://oii.la/OsRSv9V8Y",
+  "https://oii.la/F86JesOl",
+  "https://oii.la/h9c45CeJ",
+  "https://oii.la/IkE",
+  "https://oii.la/2rN",
+  "https://oii.la/uj9LP3Dn",
+  "https://oii.la/x4PNmYr",
+  "https://oii.la/u1mgHk4jm",
+  "https://oii.la/OdRAdy",
+  "https://oii.la/dN9VJzcfB",
+  "https://oii.la/bT8OzR2",
+  "https://oii.la/pIfRMn5U6R",
+  "https://oii.la/xqmPSc8gIm",
+  "https://oii.la/5tJxF",
+  "https://oii.la/wgq9Rh",
+  "https://oii.la/R88j",
+  "https://oii.la/9t2",
+  "https://oii.la/HJgmezFFye",
+  "https://oii.la/PsK1",
+  "https://oii.la/vNx",
+  "https://oii.la/6aT",
+  "https://oii.la/Xgp3UdW",
+  "https://oii.la/AVEVs7gXe",
+  "https://oii.la/K3wgljr2x",
+  "https://oii.la/LXRvEnSth",
+  "https://oii.la/rWX2",
+  "https://oii.la/FNacSLYsoI",
+  "https://oii.la/4tZ10eY",
+  "https://oii.la/RD9Thqqwc0",
+  "https://oii.la/WdTkTppQw",
+  "https://oii.la/ses9igMy93",
+  "https://oii.la/xlOmddB",
+  "https://oii.la/s8hO2RipdI",
+  "https://oii.la/Su5nwXf6aT",
+  "https://oii.la/Ven2",
+  "https://oii.la/NyYah",
+  "https://oii.la/z3rVl",
+  "https://oii.la/h1Lmcgw9C",
+  "https://oii.la/FUhZxYPtZZ",
+  "https://oii.la/H8uAnZ7e",
+  "https://oii.la/A5d",
+  "https://oii.la/uqImc0Bb",
+  "https://oii.la/ACqfGjJBu",
+  "https://oii.la/SZ9GAHWD",
+  "https://oii.la/bQSrvNrM6m",
+  "https://oii.la/i0wIJzlq",
+  "https://oii.la/85AjH",
+  "https://oii.la/8ngL",
+  "https://oii.la/vAhaq",
+  "https://oii.la/uh8NaYDWu",
+  "https://oii.la/N0G",
+  "https://oii.la/K4O555GsOv",
+  "https://oii.la/s0OA2GXz5",
+  "https://oii.la/N8EB4EJ",
+  "https://oii.la/6xS8Nezo",
+  "https://oii.la/zN22iz5tk",
+  "https://oii.la/Y0QxgZOp",
+  "https://oii.la/toMKrZ",
+  "https://oii.la/nT9ugthdP",
+  "https://oii.la/3160L0yBh",
+  "https://oii.la/Q9RAorUGiK",
+  "https://oii.la/y9wzIfIm9",
+  "https://oii.la/YF6Rj7",
+  "https://oii.la/A8b1gu6v",
+  "https://oii.la/yA2X",
+  "https://oii.la/18U5AL"
+];
+
+const providers = [
+  { name: "GDFlix", icon: "fa-cloud-arrow-down", color: "blue" },
+  { name: "HubCloud", icon: "fa-cloud", color: "sky" },
+  { name: "KatDrive", icon: "fa-rocket", color: "purple" },
+  { name: "Send.cm", icon: "fa-paper-plane", color: "emerald" },
+  { name: "Indishare", icon: "fa-bolt", color: "red" },
+  { name: "1fichier", icon: "fa-box-archive", color: "orange" },
+  { name: "Mega", icon: "fa-cloud-download", color: "teal" },
+  { name: "MediaFire", icon: "fa-fire", color: "amber" },
+  { name: "pCloud", icon: "fa-cloud-upload", color: "indigo" },
+  { name: "Rapidgator", icon: "fa-gauge-high", color: "pink" }
+];
+
+function createProviders() {
+  const container = document.querySelector(".grid");
+  container.innerHTML = "";
+
+  providers.forEach(p => {
+    const card = document.createElement("div");
+    card.className = `glass p-8 text-center cursor-pointer card-hover transition-all duration-300`;
+    card.innerHTML = `
+      <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-slate-800/50 flex items-center justify-center">
+        <i class="fa-solid ${p.icon} text-3xl text-${p.color}-500"></i>
+      </div>
+      <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
+      <p class="text-sm text-slate-400 mb-6">Folder</p>
+      <button onclick="startCaptcha()" 
+              class="w-full py-4 btn-primary text-white font-medium rounded-xl shadow-lg transition-all">
+        Proceed
+      </button>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function startCaptcha() {
+  document.getElementById("captchaModal").classList.remove("hidden");
+  document.getElementById("recapArea").style.display = "flex";
+  document.getElementById("loading").classList.add("hidden");
+  document.getElementById("success").classList.add("hidden");
+  document.getElementById("recapCheck").checked = false;
+}
+
+function startVerification() {
+  if (!document.getElementById("recapCheck").checked) return;
+
+  document.getElementById("recapArea").style.display = "none";
+  document.getElementById("loading").classList.remove("hidden");
+
+  setTimeout(() => {
+    document.getElementById("loading").classList.add("hidden");
+    document.getElementById("success").classList.remove("hidden");
+
+    setTimeout(() => {
+      const randomLink = links[Math.floor(Math.random() * links.length)];
+      window.location.href = randomLink || "https://oii.la/KgVIs"; // fallback to first link
+    }, 1400);
+  }, 1800);
+}
+
+function closeModal() {
+  document.getElementById("captchaModal").classList.add("hidden");
+}
+
+// Initialize
+createProviders();
+</script>
+</body>
+</html>
